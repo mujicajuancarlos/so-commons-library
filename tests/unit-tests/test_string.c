@@ -204,6 +204,24 @@ context (test_string) {
 
         } end
 
+        it("splits strings starting with separator") {
+            char *line = "/path/to/file";
+            char **substrings = string_split(line, "/");
+
+            should_ptr(substrings) not be null;
+            should_string(substrings[0]) be equal to("");
+            should_string(substrings[1]) be equal to("path");
+            should_string(substrings[2]) be equal to("to");
+            should_string(substrings[3]) be equal to("file");
+
+            free(substrings[0]);
+            free(substrings[1]);
+            free(substrings[2]);
+            free(substrings[3]);
+            free(substrings);
+
+        } end
+
         it("n_split_when_n_is_less_than_splitted_elements") {
             char *line = "Hola planeta tierra";
             char** substrings = string_n_split(line, 2, " ");
